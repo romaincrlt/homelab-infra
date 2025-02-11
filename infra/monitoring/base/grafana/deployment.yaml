@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: docker.io/grafana/grafana:11.5.1
+          ports:
+            - containerPort: 3000
+          #env:
+          #  - name: GF_SECURITY_ADMIN_PASSWORD
+          #    value: "" # set a default password other than admin
+          volumeMounts:
+            - name: grafana-dashboards-config
+              mountPath: /etc/grafana/provisioning/dashboards/
+            - name: grafana-datasources-config
+              mountPath: /etc/grafana/provisioning/datasources/
+            - name: grafana-storage
+              mountPath: /var/lib/grafana # Default data storage path for Grafana
+            - name: grafana-dashboards-data
+              mountPath: /etc/dashboards/
+      volumes:
+        - name: grafana-dashboards-config
+          configMap:
+            name: grafana-dashboards-config
+        - name: grafana-datasources-config
+          configMap:
+            name: grafana-datasources-config
+        - name: grafana-dashboards-data
+          configMap:
+            name: grafana-dashboards-data
+        - name: grafana-storage
+          persistentVolumeClaim:
+            claimName: grafana-pvc
+# grafana-cli admin reset-admin-password admin
