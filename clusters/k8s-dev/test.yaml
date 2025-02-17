@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 3h
+  retryInterval: 10m
   path: ./test
   prune: true
   sourceRef:
