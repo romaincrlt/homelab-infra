@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: prometheus
-          image: docker.io/prom/prometheus:v3.1.0
+          image: docker.io/prom/prometheus:v3.2.1
           ports:
             - containerPort: 9090
           volumeMounts:
