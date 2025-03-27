@@ -11,7 +11,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: apps
+    name: homelab-apps
   targetNamespace: media
   timeout: 2m0s
   wait: true
