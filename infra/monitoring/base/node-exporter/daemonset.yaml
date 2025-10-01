@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: node-exporter
-          image: docker.io/prom/node-exporter:v1.9.0
+          image: docker.io/prom/node-exporter:v1.9.1
           ports:
             - containerPort: 9100
               name: metrics
